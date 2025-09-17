@@ -1,6 +1,7 @@
 # POO-R2
 UML de algo real
 ### Code
+https://es.slideshare.net/slideshow/por-qu-no-funciona-transmilenio-nueva-propuesta/11961002
 ```mermaid
 classDiagram
     class Parada {
