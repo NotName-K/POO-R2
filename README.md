@@ -1,6 +1,6 @@
 # POO-R2
 ## Logo del grupo
-![Logo](https://raw.githubusercontent.com/NotName-K/POO-R2/main/Screenshot%202025-09-23%20110719.png)
+![Logo](https://github.com/NotName-K/POO-R2/blob/main/Screenshot%202025-09-23%20110719.png?raw=true)
 ## UML de algo real
 Se
 ### Code
