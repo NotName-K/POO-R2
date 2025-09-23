@@ -2,8 +2,10 @@
 ## Logo del grupo
 ![Logo](https://github.com/NotName-K/POO-R2/blob/main/Screenshot%202025-09-23%20110719.png?raw=true)
 ## UML de algo real
-Se
-### Code
+Se abordó de forma superficial a traves de clases y objetos el Sistema Integrado de Transporte Publico Masivo de Bogota, conocido como Transmilenio.
+
+Se modeló paradas, rutas, buses, viajes, usuarios y la infraestructura general del sistema troncal y de buses urbanos.
+## Code
 ```mermaid
 classDiagram
     class Parada {
