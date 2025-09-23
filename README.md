@@ -1,7 +1,7 @@
 # POO-R2
 ## Logo del grupo
-
-### UML de algo real
+![Logo](https://raw.githubusercontent.com/NotName-K/POO-R2/main/Screenshot%202025-09-23%20110719.png)
+## UML de algo real
 Se
 ### Code
 ```mermaid
