@@ -4,7 +4,48 @@
 ## UML de algo real
 Se abordó de forma superficial a traves de clases y objetos el Sistema Integrado de Transporte Publico Masivo de Bogota, conocido como Transmilenio.
 
-Se modeló paradas, rutas, buses, viajes, usuarios y la infraestructura general del sistema troncal y de buses urbanos.
+Se modeló paradas, rutas, buses, viajes, usuarios y la infraestructura general del sistema troncal y de buses urbanos, presentados acontinuación.
+
+## Clases principales
+### Paradas
+```mermaid
+classDiagram
+ class Parada {
+        +String id_parada
+        +String nombre
+        +string ubicacion    
+        +String direccion
+        +String zona
+        +List~Ruta~ rutas
+        
+        +void mostrar_informacion()
+        +void agregar_ruta(Ruta ruta)
+        +void remover_ruta(Ruta ruta)
+}
+```
+### Rutas
+```mermaid
+classDiagram
+ class Ruta {
+    
+        +String nombre
+        +String tipo_servicio             
+        +List~Parada~ paradas
+        +Time horario
+        +String zona                      
+        +String operador
+
+        +List~Parada~ obtener_paradas()
+        +void agregar_parada(Parada parada, int posicion)
+        +void remover_parada(Parada parada)
+        +List~Parada~ obtener_paradas_cercanas(Coordenada ubicacion, Float distancia_max)
+        +String toString()
+    }
+
+```
+###
+###
+###
 ## Code
 ```mermaid
 classDiagram
@@ -212,7 +253,6 @@ classDiagram
         +String tipo
         +List~Ruta~ rutas
         +List~Parada~ paradas
-        +int vehiculos
         +int tarifa
         +List~String~ horarios
         +String gestion
@@ -312,7 +352,6 @@ classDiagram
     Viaje o-- Parada : parada_destino
     Sistema o-- Ruta
     Sistema o-- Parada
-    Sistema o-- Vehiculo
     Usuario o-- Tarjeta
 
 
