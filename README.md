@@ -18,10 +18,39 @@ classDiagram
         +String zona
         +List~Ruta~ rutas
         
-        +void mostrar_informacion()
-        +void agregar_ruta(Ruta ruta)
-        +void remover_ruta(Ruta ruta)
+        + mostrar_informacion()
+        + agregar_ruta(Ruta ruta)
+        + remover_ruta(Ruta ruta)
 }
+  class ParadaPortalNorte {
+        +String id_parada = "PN-001"
+        +String nombre = "Portal Norte"
+        +String direccion = "Autopista Norte con Calle 175‑176, Bogotá"
+        +String zona = "Norte"
+        +List~Ruta~ rutas = ["B924", "B75", "B27", "Alimentador Mirandela", "Alimentador Verbenal"]
+
+        + mostrar_informacion()
+        + agregar_ruta(Ruta ruta)
+        + remover_ruta(Ruta ruta)
+    }
+
+    class ParadaSITP_IPN {
+        +String id_parada = "SITP‑132"
+        +String nombre = "Av. 9 con 127A - Instituto Pedagógico Nacional"
+        +String direccion = "Avenida 9 con Calle 127A, Bogotá"
+        +String zona = "Norte"
+        +List~Ruta~ rutas = ["18‑2 Barrancas", "736 Calle 222 ‑ Paraíso", "T11 Calle 222 ‑ Alpes"]
+        
+
+        + mostrar_informacion()
+        + agregar_ruta(Ruta ruta)
+        + remover_ruta(Ruta ruta)
+
+    }
+
+    Parada <|-- ParadaPortalNorte
+    Parada <|-- ParadaSITP_IPN
+
 ```
 ### Rutas
 ```mermaid
@@ -36,16 +65,109 @@ classDiagram
         +String operador
 
         +List~Parada~ obtener_paradas()
-        +void agregar_parada(Parada parada, int posicion)
-        +void remover_parada(Parada parada)
+        + agregar_parada(Parada parada, int posicion)
+        + remover_parada(Parada parada)
         +List~Parada~ obtener_paradas_cercanas(Coordenada ubicacion, Float distancia_max)
-        +String toString()
+        
+    }
+class RutaB27 {
+        +String nombre = "B27"
+        +String tipo = "Troncal"
+        +List~String~ paradas = ["Portal Tunal", "Calle 40 Sur", "AV. Jiménez", "Marly", "Calle 72", "Calle 76", "Calle 85"]
+        +List~String~ horarios = ["Lunes a Viernes: 04:00-23:00", "Sábados: 05:00-23:00", "Domingos y Festivos: 05:00-22:00"]
+        +String operador = "TransMilenio S.A."
+        +String zona = "Avenida Caracas"
+        
     }
 
+    class Ruta639 {
+        +String nombre = "639"
+        +String tipo = "Zonal"
+        +List~String~ paradas = ["Calle 182", "Horizontes Norte", "San Antonio Norte", "La Granja Norte", "San Cristóbal Norte", "Cedritos", "Santa Bárbara Oriental", "Usaquén", "Santa Bárbara Occidental", "Pasadena", "La Castellana", "Las Ferias", "Metrópolis", "Bella Vista Occ.", "Bosque Popular", "El Salitre", "Ciudad Salitre Nor-Oriental", "Salazar Gómez", "Pradera", "Provivienda Oriental", "Alquería", "Venecia", "Muzú", "El Carmen", "Sierra Morena", "Santo Domingo"]
+        +List~String~ horarios = ["Lunes a Viernes: 04:30-22:00", "Sábados: 05:00-22:00", "Domingos y Festivos: 05:00-21:00"]
+        +String operador = "EGOBUS y CONSORCIO EXPRESS S.A.S"
+        +String zona = "Usaquén - Perdomo"
+        
+    }
+
+    Ruta <|-- RutaB27
+    Ruta <|-- Ruta639
 ```
-###
-###
-###
+### Usuario
+```mermaid
+classDiagram
+ class Usuario {
+        +String id_usuario
+        +String nombre
+        +String documento_identidad
+        +Date fecha_nacimiento
+        +String direccion
+        +String tipo_usuario          
+        +Tarjeta tarjeta
+        +String Viaje Previo
+        +List~Viaje~ historial_pagos
+        +Date fecha_registro
+        +String estatus
+  
+        + registrarse()
+        + actualizar_datos(String nombre, String correo, String telefono, String direccion)
+        + asignar_tarjeta(Tarjeta tarjeta)
+        + realizar_viaje(Ruta ruta)
+        +List~Viaje~ consultar_historial(Date inicio, Date fin)
+        +Decimal aplicar_descuento()
+        
+    }
+```
+### Sistema
+```mermaid
+classDiagram
+ class Sistema {
+        +String nombre
+        +String tipo
+        +List~Ruta~ rutas
+        +List~Parada~ paradas
+        +int tarifa
+        +List~String~ horarios
+        +String gestion
+        +List~String~ zonas
+        + agregar_ruta(Ruta ruta)
+        + agregar_vehiculo(Vehiculo vehiculo)
+        
+    }
+class TransMilenio {
+        +nombre = "TransMilenio"
+        +tipo = "Troncal"
+        +tarifa = 3200
+        +gestion = "TransMilenio S.A."
+        +zonas = ["Avenida Caracas", "Autopista Norte", "Avenida Suba", "Avenida 68"]
+        +horarios = ["Lunes a Viernes: 04:00-23:00", "Sábados: 05:00-23:00", "Domingos y Festivos: 05:00-22:00"]
+        +rutas = ["B27", "F28", "H27", "J24", "K305", "M82"]
+        + agregar_ruta(Ruta ruta)
+        + agregar_vehiculo(Vehiculo vehiculo)
+        
+    }
+
+ 
+    class SITP {
+        +nombre = "SITP"
+        +tipo = "Zonal"
+        +numero_de_viajeros = 3000000
+        +tarifa = 3200
+        +gestion = "TransMilenio S.A."
+        +zonas = ["Fontibón", "Usme", "Perdomo", "Suba Centro"]
+        +horarios = ["Lunes a Viernes: 04:30-22:00", "Sábados: 05:00-22:00", "Domingos y Festivos: 05:00-21:00"]
+        +rutas = ["639", "921", "20-4", "22-3", "18-2", "L819"]
+        + agregar_ruta(Ruta ruta)
+        + agregar_vehiculo(Vehiculo vehiculo)
+        
+    }
+
+
+    Sistema <|-- TransMilenio
+    Sistema <|-- SITP
+
+```
+
 ## Code
 ```mermaid
 classDiagram
@@ -57,12 +179,14 @@ classDiagram
         +String zona
         +List~Ruta~ rutas
         
-        +void mostrar_informacion()
-        +void agregar_ruta(Ruta ruta)
-        +void remover_ruta(Ruta ruta)
+        + mostrar_informacion()
+        + agregar_ruta(Ruta ruta)
+        + remover_ruta(Ruta ruta)
 
      
     }
+
+
 
     class ParadaPortalNorte {
         +String id_parada = "PN-001"
@@ -71,9 +195,9 @@ classDiagram
         +String zona = "Norte"
         +List~Ruta~ rutas = ["B924", "B75", "B27", "Alimentador Mirandela", "Alimentador Verbenal"]
 
-        +void mostrar_informacion()
-        +void agregar_ruta(Ruta ruta)
-        +void remover_ruta(Ruta ruta)
+        + mostrar_informacion()
+        + agregar_ruta(Ruta ruta)
+        + remover_ruta(Ruta ruta)
     }
 
     class ParadaSITP_IPN {
@@ -84,9 +208,9 @@ classDiagram
         +List~Ruta~ rutas = ["18‑2 Barrancas", "736 Calle 222 ‑ Paraíso", "T11 Calle 222 ‑ Alpes"]
         
 
-        +void mostrar_informacion()
-        +void agregar_ruta(Ruta ruta)
-        +void remover_ruta(Ruta ruta)
+        + mostrar_informacion()
+        + agregar_ruta(Ruta ruta)
+        + remover_ruta(Ruta ruta)
 
     }
 
@@ -104,10 +228,10 @@ classDiagram
         +String operador
 
         +List~Parada~ obtener_paradas()
-        +void agregar_parada(Parada parada, int posicion)
-        +void remover_parada(Parada parada)
+        + agregar_parada(Parada parada, int posicion)
+        + remover_parada(Parada parada)
         +List~Parada~ obtener_paradas_cercanas(Coordenada ubicacion, Float distancia_max)
-        +String toString()
+        
     }
 
 
@@ -119,7 +243,7 @@ classDiagram
         +List~String~ horarios = ["Lunes a Viernes: 04:00-23:00", "Sábados: 05:00-23:00", "Domingos y Festivos: 05:00-22:00"]
         +String operador = "TransMilenio S.A."
         +String zona = "Avenida Caracas"
-        +String toString()
+        
     }
 
     class Ruta639 {
@@ -129,7 +253,7 @@ classDiagram
         +List~String~ horarios = ["Lunes a Viernes: 04:30-22:00", "Sábados: 05:00-22:00", "Domingos y Festivos: 05:00-21:00"]
         +String operador = "EGOBUS y CONSORCIO EXPRESS S.A.S"
         +String zona = "Usaquén - Perdomo"
-        +String toString()
+        
     }
 
     Ruta <|-- RutaB27
@@ -144,11 +268,11 @@ classDiagram
         +Conductor conductor
         +string ubicacion
 
-        +void asignar_conductor(Conductor c)
-        +void asignar_ruta(Ruta r)
-        +void iniciar_servicio()
-        +void terminar_servicio()
-        +String toString()
+        + asignar_conductor(Conductor c)
+        + asignar_ruta(Ruta r)
+        + iniciar_servicio()
+        + terminar_servicio()
+        
     }
 
 
@@ -160,7 +284,7 @@ classDiagram
         +String operador = "TransMilenio S.A."
         +int capacidad = 90
         +int conductor = "Juan David Gimenez Castro"
-        +String toString()
+        
     }
 
     class BusL819 {
@@ -169,7 +293,7 @@ classDiagram
         +String ruta = "Santa Inés - Portal 20 de Julio"
         +String operador = "SITP"
         +int capacidad = 50
-        +String toString()
+        
     }
 
  
@@ -187,10 +311,10 @@ classDiagram
         +DateTime hora_fin
     +int numero_transbordos
         
-        +void iniciar_viaje(Parada origen, DateTime hora)
-        +void finalizar_viaje(Parada destino, DateTime hora)
-        +void realizar_transbordo(Parada punto_transbordo)
-        +String toString()
+        + iniciar_viaje(Parada origen, DateTime hora)
+        + finalizar_viaje(Parada destino, DateTime hora)
+        + realizar_transbordo(Parada punto_transbordo)
+        
     }
     
 
@@ -204,7 +328,7 @@ classDiagram
         +String tipo = "Alimentador"
         +String operador = "TransMilenio S.A."
         +String zona = "Norte"
-        +String toString()
+        
     }
 
    
@@ -218,7 +342,7 @@ classDiagram
         +String tipo = "Complementario"
         +String operador = "SITP"
         +String zona = "Sur"
-        +String toString()
+        
     }
 
     Viaje <|-- ViajeAlimentador
@@ -238,13 +362,13 @@ classDiagram
     
         +Date fecha_registro
         +String estatus               
-        +void registrarse()
-        +void actualizar_datos(String nombre, String correo, String telefono, String direccion)
-        +void asignar_tarjeta(Tarjeta tarjeta)
-        +void realizar_viaje(Ruta ruta)
+        + registrarse()
+        + actualizar_datos(String nombre, String correo, String telefono, String direccion)
+        + asignar_tarjeta(Tarjeta tarjeta)
+        + realizar_viaje(Ruta ruta)
         +List~Viaje~ consultar_historial(Date inicio, Date fin)
         +Decimal aplicar_descuento()
-        +String toString()
+        
     }
 
     
@@ -257,9 +381,9 @@ classDiagram
         +List~String~ horarios
         +String gestion
         +List~String~ zonas
-        +void agregar_ruta(Ruta ruta)
-        +void agregar_vehiculo(Vehiculo vehiculo)
-        +String toString()
+        + agregar_ruta(Ruta ruta)
+        + agregar_vehiculo(Vehiculo vehiculo)
+        
     }
 
     class TransMilenio {
@@ -270,9 +394,9 @@ classDiagram
         +zonas = ["Avenida Caracas", "Autopista Norte", "Avenida Suba", "Avenida 68"]
         +horarios = ["Lunes a Viernes: 04:00-23:00", "Sábados: 05:00-23:00", "Domingos y Festivos: 05:00-22:00"]
         +rutas = ["B27", "F28", "H27", "J24", "K305", "M82"]
-        +void agregar_ruta(Ruta ruta)
-        +void agregar_vehiculo(Vehiculo vehiculo)
-        +String toString()
+        + agregar_ruta(Ruta ruta)
+        + agregar_vehiculo(Vehiculo vehiculo)
+        
     }
 
  
@@ -285,9 +409,9 @@ classDiagram
         +zonas = ["Fontibón", "Usme", "Perdomo", "Suba Centro"]
         +horarios = ["Lunes a Viernes: 04:30-22:00", "Sábados: 05:00-22:00", "Domingos y Festivos: 05:00-21:00"]
         +rutas = ["639", "921", "20-4", "22-3", "18-2", "L819"]
-        +void agregar_ruta(Ruta ruta)
-        +void agregar_vehiculo(Vehiculo vehiculo)
-        +String toString()
+        + agregar_ruta(Ruta ruta)
+        + agregar_vehiculo(Vehiculo vehiculo)
+        
     }
 
 
@@ -304,11 +428,11 @@ classDiagram
         +Boolean personalizada
         +List~Beneficio~ beneficios
         +Decimal saldo_credito 
-        +void recargar(Decimal monto)
-        +void usar_para_pasaje()
-        +void hacer_credito()
-        +void bloquear()
-        +void personalizar(Usuario usuario, String nombre, String docId)
+        + recargar(Decimal monto)
+        + pasaje()
+        + credito()
+        + bloquear()
+        + personalizar(Usuario usuario, String nombre, String docId)
     }
      
     class Conductor {
@@ -321,10 +445,10 @@ classDiagram
         +String turno_actual           
         +Date fecha_contratacion 
 
-        +void asignar_ruta(Ruta ruta)
-        +void iniciar_turno()
-        +void terminar_turno()
-        +String toString()
+        + asignar_ruta(Ruta ruta)
+        + iniciar_turno()
+        + terminar_turno()
+        
 
 
     
@@ -353,15 +477,3 @@ classDiagram
     Sistema o-- Ruta
     Sistema o-- Parada
     Usuario o-- Tarjeta
-
-
-
-    
-
-
-
-
-
-    
-```
-
