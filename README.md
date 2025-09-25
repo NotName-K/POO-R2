@@ -4,7 +4,7 @@
 ## UML de algo real
 Se abordó de forma superficial a traves de clases y objetos el Sistema Integrado de Transporte Publico Masivo de Bogota, conocido como Transmilenio.
 
-Se modeló paradas, rutas, buses, viajes, usuarios y la infraestructura general del sistema troncal y de buses urbanos, presentados acontinuación.
+Se modeló paradas, rutas, buses, viajes, usuarios y la infraestructura general del sistema troncal y de buses urbanos, presentados a continuación.
 
 ## Clases principales
 ### Paradas
